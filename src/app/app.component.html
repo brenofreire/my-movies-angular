@@ -5,41 +5,46 @@
   </section>
 </header>
 <main class="center">
-  <div class="wrapper">
+  <div class="loader" *ngIf="loading">
+    Cagerrando...
+  </div>
+  <div class="wrapper" *ngIf="!loading">
     <!-- searchbar -->
     <section class="searchbar">
       <input type="text" name="" class="full" id="" placeholder="Busque filmes e tal...">
     </section>
     <!-- movies list -->
     <section class="card-list">
-      <article class="card-movie">
+      <div class="paginate">
+        <button>prev</button>
+        <button *ngFor='let page of pages' [class.atual]="queryString.page == page">{{ page }}</button>
+        <button>next</button>
+      </div>
+      <article class="card-movie" *ngFor="let movie of movies">
         <!-- movie pic -->
         <div class="img">
-          <img src="{{ url }}" alt="">
+          <img src="{{ url + movie.backdrop_path }}" alt="">
         </div>
         <div class="content">
           <!-- movie content header-->
           <header>
             <section class="padding">
-              <div class="rating center">78%</div>
+              <div class="rating center">{{ movie.vote_average * 10 }}%</div>
               <div class="info">
-                <h1>Thor: Ragnrok Thoroso</h1>
-                <time datetime="23/10/2019" class="date space">23/10/2019</time>
+                <h1>{{ movie.title }}</h1>
+                <time class="date space">{{ timeToBR(movie.release_date) }}</time>
               </div>
             </section>
           </header>
           <!-- movie content resume-->
           <section class="resume padding">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt sapiente aut, saepe, quo aspernatur,
-            dolorem delectus placeat officiis inventore suscipit in illum voluptates sit rem! Esse perspiciatis
-            obcaecati cum provident?
+            {{ movie.overview }}
           </section>
           <!-- movie content tags-->
           <section class="tags padding">
-            <div class="tag">Humor</div>
-            <div class="tag">Drama</div>
-            <div class="tag">Suspense</div>
-            <div class="tag">Resenha</div>
+            <div class="tag" *ngFor="let i of objectKeys(movie.genre_ids)">
+              {{ returnGenreName(movie.genre_ids[i]) }}
+            </div>
           </section>
         </div>
       </article>

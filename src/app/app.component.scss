@@ -70,12 +70,20 @@ main {
             }
         }
         .card-list {
+            .paginate {
+                .atual {
+                    background-color: $base-color;
+                    color: $font-color;
+                }
+            }
             .card-movie {
                 display: flex;
                 width: 100%;
-                max-height: 400px;
+                min-height: 275px;
+                max-height: 275px;
+                margin-bottom: 35px;
                 .img {
-                    flex: 2;
+                    flex: 25;
                     img {
                         object-fit: cover;
                         width: 100%;
@@ -83,7 +91,7 @@ main {
                     }
                 }
                 .content {
-                    flex: 8;
+                    flex: 75;
                     background: $grey;
                     position: relative;
                     header {
