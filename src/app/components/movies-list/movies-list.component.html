@@ -1,0 +1,29 @@
+<article class="card-movie" *ngFor="let movie of movies" [routerLink]="'/movie/' + movie.id">
+    <div class="img">
+        <img src="{{ url + movie.poster_path }}" class="no-mobile" alt="">
+        <img src="{{ url + movie.backdrop_path }}" class="no-desktop" alt="">
+    </div>
+    <div class="content">
+        <!-- movie header -->
+        <header appBackground>
+            <section appPadding>
+                <div class="btn-circle" appCenter appBackground>{{ movie.vote_average * 10 }}%</div>
+                <div class="info">
+                    <h1>{{ movie.title }}</h1>
+                    <time class="date space">{{ movie.release_date | timeToBr }}</time>
+                </div>
+            </section>
+        </header>
+        <!-- movie overview -->
+        <div appPadding>
+            <section class="resume">
+                {{ movie.overview }}
+            </section>
+            <section class="tags">
+                <div class="tag" *ngFor="let i of objectKeys(movie.genre_ids)">
+                    {{ returnGenreName(movie.genre_ids[i]) }}
+                </div>
+            </section>
+        </div>
+    </div>
+</article>
