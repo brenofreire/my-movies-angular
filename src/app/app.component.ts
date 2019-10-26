@@ -28,12 +28,15 @@ export class AppComponent {
   /**
    * @param page Auxiliar para ajudar na paginação da API
    * @returns Retorna lista de filmes.
+   * @description O processo de montagem do array foi baseado no que foi pedido
+   * no repositório. Por isso tem algumas verificações estáticas. Num outro cenário,
+   * essas verificações seriam dinâmicas. 
    */
   getMovies(page: number = 1) {
-    this.loading = true;
     this.moviesServ.getMovies(page).then(response => {
+      this.setsMoviesHelper(response['results']);
+      this.renderCurrentPage(page == 2 ? 4 : null);
       this.renderPaginatePages(response['total_pages']);
-      this.moviesHelper = this.setsMoviesArray(response['results']);
       this.loading = false;
     });
   }
@@ -42,19 +45,16 @@ export class AppComponent {
    * @param results Monta o array de filmes. Como estou seguindo template, 
    * eu fiz de uma que ele para de recarregar na página 5 (index 4).
    */
-  setsMoviesArray(results: Array<object>): Array<object> {
+  setsMoviesHelper(results: Array<object>): void {
     if (results.length && this.moviesHelper.length) {
-      this.renderCurrentPage(4);
-      return this.moviesHelper.concat(results.slice(0, 5));
-    } else {
-      this.renderCurrentPage(0); return results
-    };
+      this.moviesHelper = this.moviesHelper.concat(results.slice(0, 5));
+    } else this.moviesHelper = results;
   }
   /**
    * Ao clicar no botão, renderiza conteúdo da página atual
    * @param page index da página
    */
-  renderCurrentPage(page: number = 0) {
+  renderCurrentPage(page: number = 0): void {
     this.movies = this.moviesHelper.slice(page * 5, (page + 1) * 5);
     this.currentPage = page || page == 0 ? page + 1 : this.currentPage;
     if (!this.movies.length) this.getMovies(2);
@@ -64,14 +64,14 @@ export class AppComponent {
    * @param obj 
    * @returns Array de keys
    */
-  objectKeys(obj: {}) {
+  objectKeys(obj: {}): Array<string> {
     return Object.keys(obj);
   }
   /**
    * @description Busca e armazena os gêneros disponíveis;
    * @returns Os gêneros disponíveis
    */
-  async getGenres() {
+  async getGenres(): Promise<any> {
     this.genres = await this.moviesServ.getGenres();
   };
   /**
@@ -79,14 +79,14 @@ export class AppComponent {
    * @param id 
    * @returns Nome do gênero
    */
-  returnGenreName(id: number) {
+  returnGenreName(id: number): string {
     for (let genre of this.genres) if (genre.id == id) return genre.name;
   }
   /**
    * @description cria o array de páginas, e limita até 5 páginas como no template
    * @param pages número maximo ou total de páginas, que nesse caso vai ser 5
    */
-  renderPaginatePages(pages: number) {
+  renderPaginatePages(pages: number): void {
     this.pages = [];
     for (let i = 0; i < pages; i++) {
       this.pages.push(i);

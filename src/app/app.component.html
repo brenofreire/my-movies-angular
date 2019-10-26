@@ -46,9 +46,9 @@
         </div>
       </article>
       <!-- paginate -->
-      <div class="paginate">
+      <div class="paginate" *ngIf="movies.length">
           <button  class="btn-clear" *ngFor='let page of pages' [class.btn-circle]="currentPage == page + 1"
-            (click)="renderCurrentPage(page)">{{ page + 1 }}</button>
+            (click)="renderCurrentPage(page)" [disabled]="currentPage == page + 1">{{ page + 1 }}</button>
         </div>
     </section>
   </div>
