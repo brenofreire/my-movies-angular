@@ -14,11 +14,6 @@ export class AppComponent {
   private moviesHelper: any[] = [];
   private loading = true;
   private genres = [];
-  public queryString = {
-    page: 1,
-    total_results: 5,
-    total_pages: 5,    
-  }
   public currentPage = 1;
   public pages: any[] = [];
 
@@ -29,10 +24,14 @@ export class AppComponent {
     this.getGenres();
   }
   /**
-   * @description Retorna lista de filmes. Inicialmente os mais bem avaliados.
+   * @description Como a API retorna 20 filmes por vez, o parâmetro "page" serve para controlar
+   * a página desejada após o vigésimo registro. 
+   * @param page Auxiliar para ajudar na paginação da API
+   * @returns Retorna lista de filmes.
    */
-  getMovies() {
-    let queryString = this.queryStringGetMovies();
+  getMovies(page: number = 1) {
+    this.loading = true;
+    let queryString = this.queryStringGetMovies(page);
     this.api.get('/movie/top_rated', queryString).then(async response => {
       this.renderPaginate(response['total_pages']);
       this.moviesHelper = response['results'];
@@ -40,20 +39,26 @@ export class AppComponent {
       this.loading = false;
     });
   }
+  /**
+   * Ao clicar no botão, renderiza conteúdo da página tual
+   * @param page index da página
+   */
   renderCurrentPage(page: number = 0) {
     this.movies = this.moviesHelper.slice(page * 5, (page + 1) * 5);
-    this.currentPage = page + 1;
+    this.currentPage = page ? page + 1 : this.currentPage;
+    if(!this.movies.length) this.getMovies(2);
   }
   /**
    * @description Monta a query string do método de buscar lista filmes
-   * @returns query string
+   * @returns Query string
    */
-  queryStringGetMovies() {
-    return `&page=${this.queryString.page}`;
+  queryStringGetMovies(page: number) {
+    return `&page=${page}`;
   }
   /**
+   * @description Retorna as keys do objeto para iterar no array
    * @param obj 
-   * @description retorna as keys do objeto para iterar no array
+   * @returns Array de keys
    */
   objectKeys(obj: {}) {
     return Object.keys(obj);
@@ -67,35 +72,26 @@ export class AppComponent {
     this.genres = info['genres'];
   };
   /**
+   * @description Baseado no id go gênero, retorna o nome dele
    * @param id 
-   * @description baseado no id go gênero, retorna o nome dele
-   * @returns nome do gênero
+   * @returns Nome do gênero
    */
   returnGenreName(id: number) {
     for (let genre of this.genres) if (genre.id == id) return genre.name;
   }
   /**
-   * @param date data em string
-   * @returns data em formato dia/mes/ano
+   * @param date Data em string
+   * @returns Data em formato dia/mes/ano
    */
   timeToBR(date: string) {
     return moment(date).format('DD/MM/YYYY');
-  }
-  renderizaPaginateLegado(pages: number) {
-    let half = Math.floor(pages / 2);
-    if (pages <= 10) {
-      for (let i = 1; i <= pages; i++) this.pages.push(i);
-    } else {
-      for (let i = 1; i <= pages; i++) {
-        if (i <= 3) this.pages.push(i);
-        if (i >= half && i < half + 3) this.pages.push(i);
-        if (i > pages - 3) this.pages.push(i);
-      }
-      this.pages.splice(3, 0, '...');
-      this.pages.splice(7, 0, '...');
-    }
-  }
+  }  
+  /**
+   * @description
+   * @param pages 
+   */
   renderPaginate(pages: number) {
+    this.pages = [];
     for (let i = 0; i < pages; i++) {
       this.pages.push(i);
       if(i == 4) break;
