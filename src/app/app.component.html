@@ -1,10 +1,10 @@
 <!-- header -->
-<header class="main center">
-  <section class="cover center">
+<header class="main" appCenter appBackground>
+  <section class="cover" appCenter>
     Movies
   </section>
 </header>
-<main class="center">
+<main appCenter>
    <!-- loader -->
   <div class="loader" *ngIf="loading">
     Cagerrando...
@@ -12,7 +12,7 @@
   <div class="wrapper" *ngIf="!loading">
     <!-- searchbar -->
     <section class="searchbar">
-      <input type="text" name="" class="full" id="" placeholder="Busque filmes e tal...">
+      <input type="text" name="" appFull id="" placeholder="Busque filmes e tal...">
     </section>
     <!-- movies list -->
     <section class="card-list">      
@@ -22,9 +22,9 @@
         </div>
         <div class="content">
           <!-- movie header -->
-          <header>
-            <section class="padding">
-              <div class="btn-circle center">{{ movie.vote_average * 10 }}%</div>
+          <header appBackground>
+            <section appPadding>
+              <div class="btn-circle" appCenter appBackground>{{ movie.vote_average * 10 }}%</div>
               <div class="info">
                 <h1>{{ movie.title }}</h1>
                 <time class="date space">{{ movie.release_date | timeToBr }}</time>
@@ -32,7 +32,7 @@
             </section>
           </header>
           <!-- movie overview -->
-          <div class="padding">
+          <div appPadding>
             <section class="resume">
               {{ movie.overview }}
             </section>

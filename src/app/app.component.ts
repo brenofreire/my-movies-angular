@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ApplicationRef } from '@angular/core';
 import { ApiService } from 'src/services/api/api.service';
 
 import { MoviesService } from 'src/services/movies/movies.service';
+import { BackgroundDirective } from 'src/directive/main.directive';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,8 @@ export class AppComponent {
 
   constructor(
     private api: ApiService,
-    private moviesServ: MoviesService
+    private moviesServ: MoviesService,
+    private ref: ApplicationRef,
   ) {
     this.getMovies();
     this.getGenres();
@@ -45,6 +47,7 @@ export class AppComponent {
     this.movies = this.moviesHelper.slice(page * 5, (page + 1) * 5);
     this.currentPage = page ? page + 1 : this.currentPage;
     if(!this.movies.length) this.getMovies(2);
+    this.ref.tick();
   }  
   /**
    * @description Retorna as keys do objeto para iterar no array
