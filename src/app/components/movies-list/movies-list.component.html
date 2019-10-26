@@ -16,14 +16,8 @@
         </header>
         <!-- movie overview -->
         <div appPadding>
-            <section class="resume">
-                {{ movie.overview }}
-            </section>
-            <section class="tags">
-                <div class="tag" *ngFor="let i of objectKeys(movie.genre_ids)">
-                    {{ returnGenreName(movie.genre_ids[i]) }}
-                </div>
-            </section>
+            <section class="resume">{{ movie.overview }}</section>
+            <app-tags [tags]="movie.genre_ids"></app-tags>
         </div>
     </div>
 </article>
