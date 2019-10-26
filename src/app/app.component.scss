@@ -59,7 +59,7 @@ h1 {
 .btn-circle:before {
     content: "";
     position: absolute;
-    z-index: 1;
+    z-index: 4;
     top: -6px;
     left: -6px;
     right: -6px;
@@ -99,20 +99,9 @@ main {
             }
             .card-movie {
                 display: flex;
-                width: 100%;
-                min-height: 275px;
-                max-height: 275px;
-                margin-bottom: 35px;
-                .img {
-                    flex: 25;
-                    img {
-                        object-fit: cover;
-                        width: 100%;
-                        height: 100%;
-                    }
-                }
+                width: 100%;                                
                 .content {
-                    flex: 75;
+                    flex: auto;
                     background: $grey;
                     position: relative;
                     overflow: hidden;
@@ -124,15 +113,17 @@ main {
                             max-width: 95%;
                             overflow: hidden;
                             display: flex;                            
-                            margin-top: 30px;
+                            padding-top: 30px;
                             .btn-circle {                                
                                 border: 5px solid $font-color;                                
                             }                                                        
                             .info {
                                 margin-left: 10px;   
-                                overflow: hidden;                                                             
+                                overflow: hidden;
+                                display: flex;
+                                justify-content: space-between;                                                             
+                                flex-direction: column;
                                 h1 { 
-                                    font-size: $font-size-bigger;
                                     padding-bottom: 5px;
                                     white-space: nowrap;
                                     overflow: hidden;
@@ -148,8 +139,8 @@ main {
                         }
                     }
                     .resume {
-                        margin-top: 50px;
-                        width: 97%;
+                        margin-top: 35px;
+                        width: 100%;
                         color: #666;
                     }                    
                     .tags {
@@ -172,27 +163,65 @@ main {
         }
     }
 }
+@media (min-width: 768px) {  
+    .card-movie {
+        display: flex;
+        min-height: 290px;
+        max-height: 290px;
+        margin-bottom: 35px;
+        .img {
+            flex: auto;
+            img {
+                object-fit: cover;
+                min-height: 290px;
+                max-height: 290px;
+            }
+        }
+        h1 { 
+            font-size: $font-size-bigger;
+        }
+        .no-desktop {
+            display: none;
+        }
+    }
+}
 @media (max-width: 1024px) {  
     main {
         .wrapper {
             width: 100%;
         }
     }
+}
+
+@media (max-width: 767px) {  
+    .searchbar {
+        input {
+            width: 95% !important;
+        }
+    }
     .card-movie {
         display: flex;
-        min-height: 700px !important;
-        max-height: 700px !important;
+        min-height: 100%;
+        max-height: 100%;
         flex-direction: column;
+        .no-mobile {
+            display: none;
+        }
         .img {
-            flex: 0 !important;
+            margin-bottom: -5px;
             img {
                 object-fit: cover;
-                width: 100% !important;
-                height: 100% !important;
+                max-width: 100%;
+                max-height: 100%;
+                height: auto;
             }
         }
-        .content {
-            flex: 11 !important;
+        h1 { 
+            font-size: $font-size-regular;
         }
+        .tags {
+            padding-bottom: 20px;
+        }
+        margin-bottom: 8px;
     }
 }

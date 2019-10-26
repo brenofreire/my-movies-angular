@@ -13,8 +13,8 @@ export class BackgroundDirective {
 })
 export class PaddingDirective {
   constructor(elementRef: ElementRef) {
-    elementRef.nativeElement.style.position = 'absolute';
-    elementRef.nativeElement.style.left = '2%';
+    elementRef.nativeElement.style.paddingLeft = '20px';
+    elementRef.nativeElement.style.paddingRight = '20px';
     elementRef.nativeElement.style.maxWidth = '100%';
   }
 }

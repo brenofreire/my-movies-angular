@@ -17,6 +17,7 @@ export class AppComponent {
   private genres = [];
   public currentPage = 1;
   public pages: any[] = [];
+  public isSmallScreen = false;
 
   constructor(
     private api: ApiService,
