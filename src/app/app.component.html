@@ -5,6 +5,7 @@
   </section>
 </header>
 <main class="center">
+   <!-- loader -->
   <div class="loader" *ngIf="loading">
     Cagerrando...
   </div>
@@ -20,21 +21,21 @@
           <img src="{{ url + movie.backdrop_path }}" alt="">
         </div>
         <div class="content">
+          <!-- movie header -->
           <header>
             <section class="padding">
               <div class="btn-circle center">{{ movie.vote_average * 10 }}%</div>
               <div class="info">
                 <h1>{{ movie.title }}</h1>
-                <time class="date space">{{ timeToBR(movie.release_date) }}</time>
+                <time class="date space">{{ movie.release_date | timeToBr }}</time>
               </div>
             </section>
           </header>
+          <!-- movie overview -->
           <div class="padding">
-            <!-- movie content resume-->
             <section class="resume">
               {{ movie.overview }}
             </section>
-            <!-- movie content tags-->
             <section class="tags">
               <div class="tag" *ngFor="let i of objectKeys(movie.genre_ids)">
                 {{ returnGenreName(movie.genre_ids[i]) }}

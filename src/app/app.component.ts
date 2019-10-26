@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiService } from 'src/services/api/api.service';
 
-import * as moment from 'moment';
+import { MoviesService } from 'src/services/movies/movies.service';
 
 @Component({
   selector: 'app-root',
@@ -19,20 +19,18 @@ export class AppComponent {
 
   constructor(
     private api: ApiService,
+    private moviesServ: MoviesService
   ) {
     this.getMovies();
     this.getGenres();
   }
   /**
-   * @description Como a API retorna 20 filmes por vez, o parâmetro "page" serve para controlar
-   * a página desejada após o vigésimo registro. 
    * @param page Auxiliar para ajudar na paginação da API
    * @returns Retorna lista de filmes.
    */
   getMovies(page: number = 1) {
     this.loading = true;
-    let queryString = this.queryStringGetMovies(page);
-    this.api.get('/movie/top_rated', queryString).then(async response => {
+    this.moviesServ.getMovies(page).then(response => {
       this.renderPaginate(response['total_pages']);
       this.moviesHelper = response['results'];
       this.renderCurrentPage();
@@ -40,21 +38,14 @@ export class AppComponent {
     });
   }
   /**
-   * Ao clicar no botão, renderiza conteúdo da página tual
+   * Ao clicar no botão, renderiza conteúdo da página atual
    * @param page index da página
    */
   renderCurrentPage(page: number = 0) {
     this.movies = this.moviesHelper.slice(page * 5, (page + 1) * 5);
     this.currentPage = page ? page + 1 : this.currentPage;
     if(!this.movies.length) this.getMovies(2);
-  }
-  /**
-   * @description Monta a query string do método de buscar lista filmes
-   * @returns Query string
-   */
-  queryStringGetMovies(page: number) {
-    return `&page=${page}`;
-  }
+  }  
   /**
    * @description Retorna as keys do objeto para iterar no array
    * @param obj 
@@ -68,8 +59,7 @@ export class AppComponent {
    * @returns Os gêneros disponíveis
    */
   async getGenres() {
-    let info = <any>await this.api.get(`/genre/movie/list`);
-    this.genres = info['genres'];
+    this.genres = await this.moviesServ.getGenres();
   };
   /**
    * @description Baseado no id go gênero, retorna o nome dele
@@ -78,17 +68,10 @@ export class AppComponent {
    */
   returnGenreName(id: number) {
     for (let genre of this.genres) if (genre.id == id) return genre.name;
-  }
-  /**
-   * @param date Data em string
-   * @returns Data em formato dia/mes/ano
-   */
-  timeToBR(date: string) {
-    return moment(date).format('DD/MM/YYYY');
   }  
   /**
-   * @description
-   * @param pages 
+   * @description cria o array de páginas, e limita até 5 páginas como no template
+   * @param pages número maximo ou total de páginas, que nesse caso vai ser 5
    */
   renderPaginate(pages: number) {
     this.pages = [];
