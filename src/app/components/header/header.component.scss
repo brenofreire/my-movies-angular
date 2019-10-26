@@ -1,0 +1,15 @@
+// font colors
+$font-color: #00e8e4;
+$base-color: #116193;
+
+header {
+    color: $font-color;
+    &.main {        
+        font-size: $font-size-biggest;
+        .cover {
+            width: 80%;
+            height: 90px;
+            align-items: center;
+        }
+    }
+}
