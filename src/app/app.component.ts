@@ -2,7 +2,7 @@ import { Component, ApplicationRef } from '@angular/core';
 import { ApiService } from 'src/services/api/api.service';
 
 import { MoviesService } from 'src/services/movies/movies.service';
-import { BackgroundDirective } from 'src/directive/main.directive';
+
 
 @Component({
   selector: 'app-root',
@@ -17,12 +17,10 @@ export class AppComponent {
   private genres = [];
   public currentPage = 1;
   public pages: any[] = [];
-  public isSmallScreen = false;
 
   constructor(
     private api: ApiService,
     private moviesServ: MoviesService,
-    private ref: ApplicationRef,
   ) {
     this.getMovies();
     this.getGenres();
@@ -46,10 +44,11 @@ export class AppComponent {
    */
   renderCurrentPage(page: number = 0) {
     this.movies = this.moviesHelper.slice(page * 5, (page + 1) * 5);
-    this.currentPage = page ? page + 1 : this.currentPage;
-    if(!this.movies.length) this.getMovies(2);
-    this.ref.tick();
-  }  
+    console.log('index', page);    
+    this.currentPage = page || page == 0 ? page + 1 : this.currentPage;
+    if (!this.movies.length) this.getMovies(2);
+    console.log(this.currentPage);    
+  }
   /**
    * @description Retorna as keys do objeto para iterar no array
    * @param obj 
@@ -72,7 +71,7 @@ export class AppComponent {
    */
   returnGenreName(id: number) {
     for (let genre of this.genres) if (genre.id == id) return genre.name;
-  }  
+  }
   /**
    * @description cria o array de páginas, e limita até 5 páginas como no template
    * @param pages número maximo ou total de páginas, que nesse caso vai ser 5
@@ -81,7 +80,7 @@ export class AppComponent {
     this.pages = [];
     for (let i = 0; i < pages; i++) {
       this.pages.push(i);
-      if(i == 4) break;
+      if (i == 4) break;
     }
   }
 }
