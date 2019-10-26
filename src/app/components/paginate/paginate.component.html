@@ -1,0 +1,4 @@
+<div class="paginate">
+    <button class="btn-clear" *ngFor='let page of pages' [class.btn-circle]="currentPage == page + 1"
+        (click)="renderCurrentPage(page)" [disabled]="currentPage == page + 1">{{ page + 1 }}</button>
+</div>
