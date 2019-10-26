@@ -14,40 +14,40 @@
       <input type="text" name="" class="full" id="" placeholder="Busque filmes e tal...">
     </section>
     <!-- movies list -->
-    <section class="card-list">
-      <div class="paginate">
-        <button>prev</button>
-        <button *ngFor='let page of pages' [class.atual]="queryString.page == page">{{ page }}</button>
-        <button>next</button>
-      </div>
+    <section class="card-list">      
       <article class="card-movie" *ngFor="let movie of movies">
-        <!-- movie pic -->
         <div class="img">
           <img src="{{ url + movie.backdrop_path }}" alt="">
         </div>
         <div class="content">
-          <!-- movie content header-->
           <header>
             <section class="padding">
-              <div class="rating center">{{ movie.vote_average * 10 }}%</div>
+              <div class="btn-circle center">{{ movie.vote_average * 10 }}%</div>
               <div class="info">
                 <h1>{{ movie.title }}</h1>
                 <time class="date space">{{ timeToBR(movie.release_date) }}</time>
               </div>
             </section>
           </header>
-          <!-- movie content resume-->
-          <section class="resume padding">
-            {{ movie.overview }}
-          </section>
-          <!-- movie content tags-->
-          <section class="tags padding">
-            <div class="tag" *ngFor="let i of objectKeys(movie.genre_ids)">
-              {{ returnGenreName(movie.genre_ids[i]) }}
-            </div>
-          </section>
+          <div class="padding">
+            <!-- movie content resume-->
+            <section class="resume">
+              {{ movie.overview }}
+            </section>
+            <!-- movie content tags-->
+            <section class="tags">
+              <div class="tag" *ngFor="let i of objectKeys(movie.genre_ids)">
+                {{ returnGenreName(movie.genre_ids[i]) }}
+              </div>
+            </section>
+          </div>
         </div>
       </article>
+      <!-- paginate -->
+      <div class="paginate">
+          <button  class="btn-clear" *ngFor='let page of pages' [class.btn-circle]="currentPage == page + 1"
+            (click)="renderCurrentPage(page)">{{ page + 1 }}</button>
+        </div>
     </section>
   </div>
 </main>

@@ -11,13 +11,15 @@ import * as moment from 'moment';
 export class AppComponent {
   public url = 'http://image.tmdb.org/t/p/w500';
   private movies;
+  private moviesHelper: any[] = [];
   private loading = true;
   private genres = [];
   public queryString = {
     page: 1,
     total_results: 5,
-    total_pages: 5,
+    total_pages: 5,    
   }
+  public currentPage = 1;
   public pages: any[] = [];
 
   constructor(
@@ -32,11 +34,15 @@ export class AppComponent {
   getMovies() {
     let queryString = this.queryStringGetMovies();
     this.api.get('/movie/top_rated', queryString).then(async response => {
-      this.renderizaPaginate(response['total_pages']);
-      this.movies = response['results'];
-      this.movies.slice(5);
+      this.renderPaginate(response['total_pages']);
+      this.moviesHelper = response['results'];
+      this.renderCurrentPage();
       this.loading = false;
     });
+  }
+  renderCurrentPage(page: number = 0) {
+    this.movies = this.moviesHelper.slice(page * 5, (page + 1) * 5);
+    this.currentPage = page + 1;
   }
   /**
    * @description Monta a query string do método de buscar lista filmes
@@ -75,18 +81,24 @@ export class AppComponent {
   timeToBR(date: string) {
     return moment(date).format('DD/MM/YYYY');
   }
-  renderizaPaginate(pages: number) {
-    let half = Math.floor(pages / 2);   
+  renderizaPaginateLegado(pages: number) {
+    let half = Math.floor(pages / 2);
     if (pages <= 10) {
       for (let i = 1; i <= pages; i++) this.pages.push(i);
     } else {
       for (let i = 1; i <= pages; i++) {
         if (i <= 3) this.pages.push(i);
-        if(i >= half && i < half + 3) this.pages.push(i);
+        if (i >= half && i < half + 3) this.pages.push(i);
         if (i > pages - 3) this.pages.push(i);
       }
       this.pages.splice(3, 0, '...');
       this.pages.splice(7, 0, '...');
+    }
+  }
+  renderPaginate(pages: number) {
+    for (let i = 0; i < pages; i++) {
+      this.pages.push(i);
+      if(i == 4) break;
     }
   }
 }
