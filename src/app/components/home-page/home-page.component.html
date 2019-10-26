@@ -1,0 +1,20 @@
+<!-- header -->
+<app-header></app-header>
+<main appCenter>
+  <!-- loader -->
+  <div class="loader" *ngIf="loading">
+    Cagerrando...
+  </div>
+  <div class="wrapper" *ngIf="!loading">
+    <!-- searchbar -->
+    <section class="searchbar" appCenter>
+      <input type="text" name="" appFull id="" placeholder="Busque filmes e tal...">
+    </section>
+    <!-- movies list -->
+    <section class="card-list">
+      <app-movies-list [movies]="movies" ></app-movies-list>
+      <!-- paginate -->
+      <app-paginate *ngIf="movies.length" [pages]="pages" [currentPage]="currentPage" (render)="renderCurrentPage($event)"></app-paginate>      
+    </section>
+  </div>
+</main>
