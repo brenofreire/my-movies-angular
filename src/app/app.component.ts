@@ -11,11 +11,11 @@ import { MoviesService } from 'src/services/movies/movies.service';
 })
 export class AppComponent {
   public url = 'http://image.tmdb.org/t/p/w500';
-  private movies;
+  private movies: any[] = [];
   private moviesHelper: any[] = [];
   private loading = true;
   private genres = [];
-  public currentPage = 1;
+  public currentPage: number = 1;
   public pages: any[] = [];
 
   constructor(
@@ -32,11 +32,23 @@ export class AppComponent {
   getMovies(page: number = 1) {
     this.loading = true;
     this.moviesServ.getMovies(page).then(response => {
-      this.renderPaginate(response['total_pages']);
-      this.moviesHelper = response['results'];
-      this.renderCurrentPage();
+      this.renderPaginatePages(response['total_pages']);
+      this.moviesHelper = this.setsMoviesArray(response['results']);
       this.loading = false;
     });
+  }
+  /**
+   * 
+   * @param results Monta o array de filmes. Como estou seguindo template, 
+   * eu fiz de uma que ele para de recarregar na página 5 (index 4).
+   */
+  setsMoviesArray(results: Array<object>): Array<object> {
+    if (results.length && this.moviesHelper.length) {
+      this.renderCurrentPage(4);
+      return this.moviesHelper.concat(results.slice(0, 5));
+    } else {
+      this.renderCurrentPage(0); return results
+    };
   }
   /**
    * Ao clicar no botão, renderiza conteúdo da página atual
@@ -44,10 +56,8 @@ export class AppComponent {
    */
   renderCurrentPage(page: number = 0) {
     this.movies = this.moviesHelper.slice(page * 5, (page + 1) * 5);
-    console.log('index', page);    
     this.currentPage = page || page == 0 ? page + 1 : this.currentPage;
     if (!this.movies.length) this.getMovies(2);
-    console.log(this.currentPage);    
   }
   /**
    * @description Retorna as keys do objeto para iterar no array
@@ -76,7 +86,7 @@ export class AppComponent {
    * @description cria o array de páginas, e limita até 5 páginas como no template
    * @param pages número maximo ou total de páginas, que nesse caso vai ser 5
    */
-  renderPaginate(pages: number) {
+  renderPaginatePages(pages: number) {
     this.pages = [];
     for (let i = 0; i < pages; i++) {
       this.pages.push(i);
