@@ -93,4 +93,7 @@ export class AppComponent {
       if (i == 4) break;
     }
   }
+  goToMovivePage(){
+    
+  }
 }
