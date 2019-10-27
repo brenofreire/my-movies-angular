@@ -10,13 +10,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class MovieComponent implements OnInit {
 
-  public url: string = 'http://image.tmdb.org/t/p/w500';
-  public url_trailer: string = '';
+  private url: string = 'http://image.tmdb.org/t/p/w500';
+  private url_trailer: string = '';
   private params: {};
-  public id: number;
-  public movie: any[] = [];
-  public loading: boolean = true;
-  public sanitizerEmbend;
+  private id: number;
+  private movie: any[] = [];
+  private loading: boolean = true;
+  private sanitizerEmbend;
 
   constructor(
     private route: ActivatedRoute,

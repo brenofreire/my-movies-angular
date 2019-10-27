@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -14,6 +13,8 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { StatusToBrPipe } from 'src/pipes/status-to-br.pipe';
 import { ToHourPipe } from 'src/pipes/to-hour.pipe';
 import { TagsComponent } from './components/tags/tags.component';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { TagsComponent } from './components/tags/tags.component';
     AppRoutingModule,
     HttpClientModule,
     TimeToBrModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -7,7 +7,7 @@ import { MoviesService } from 'src/services/movies/movies.service';
   styleUrls: ['./movies-list.component.scss']
 })
 export class MoviesListComponent implements OnInit {
-  public url = 'http://image.tmdb.org/t/p/w500';
+  private url = 'http://image.tmdb.org/t/p/w342';
   @Input('movies') movies: Array<object>;
 
   constructor() { }
