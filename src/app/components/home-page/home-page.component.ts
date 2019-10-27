@@ -63,6 +63,7 @@ export class HomePageComponent implements OnInit {
     this.movies = this.moviesHelper.slice(page * 5, (page + 1) * 5);
     this.currentPage = page || page == 0 ? page + 1 : this.currentPage;
     if (!this.movies.length) this.getMovies(2);
+    window.scroll(0,0);
   }
   /**
    * @description Retorna as keys do objeto para iterar no array

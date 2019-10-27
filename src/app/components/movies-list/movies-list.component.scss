@@ -8,6 +8,7 @@
         background: $grey;
         position: relative;
         overflow: hidden;
+        padding-bottom: 20px;
         header {
             height: 70px;
             display: block;
@@ -78,16 +79,14 @@
             margin-bottom: -5px;
             img {
                 object-fit: cover;
-                height: auto;
+                height: inherit;
                 width: -webkit-fill-available;
+                max-height: 280px;
             }
         }
         h1 { 
             font-size: $font-size-regular;
-        }
-        .tags {
-            padding-bottom: 20px;
-        }
+        }        
         margin-bottom: 8px;
     }
 }
