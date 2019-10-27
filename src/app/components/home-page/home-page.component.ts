@@ -37,6 +37,7 @@ export class HomePageComponent implements OnInit {
    */
   getMovies(page: number = 1): void {
     if(this.searchValue && page != 2) this.moviesHelper = [];
+    if(!this.searchValue && page != 2) this.moviesHelper = [];
     this.moviesServ.getMovies(page, this.searchValue).then(response => {
       this.setsMoviesHelper(response['results']);
       this.renderCurrentPage(page == 2 ? 4 : null);

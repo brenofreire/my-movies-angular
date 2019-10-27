@@ -45,9 +45,7 @@ export class MoviesService {
    */
   getMovies(page: number = 1, searchValue: string): Promise<any> {
     return new Promise(res => {
-      console.log(page, searchValue);
       let query = searchValue && searchValue.length ? this.queryStringSearchMovies(searchValue, page) : this.queryStringGetMovies(page);
-      console.log(query);
       this.api.get(query['url'], query['string']).then(response => {
         res(response);
       });
