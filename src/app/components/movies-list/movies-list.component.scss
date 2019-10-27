@@ -18,6 +18,7 @@
                 overflow: hidden;
                 display: flex;                            
                 padding-top: 30px;
+                min-height: 62px;
                 .btn-circle {                                
                     border: 5px solid $font-color;                                
                 }                                                        
@@ -28,14 +29,12 @@
                     justify-content: space-between;                                                             
                     flex-direction: column;
                     h1 { 
-                        padding-bottom: 5px;
                         white-space: nowrap;
                         overflow: hidden;
                         text-overflow: ellipsis;
                         width: 100%;
                     }
                     time {
-                        padding-top: 7px;
                         color: #aaa;
                         font-weight: lighter;
                     }
@@ -45,7 +44,8 @@
         .resume {
             margin-top: 35px;
             width: 100%;
-            color: #666;
+            color: #666;            
+            font-weight: 600;
         }                            
     }
 }
@@ -80,12 +80,14 @@
             img {
                 object-fit: cover;
                 height: inherit;
+                width: -moz-available;
                 width: -webkit-fill-available;
+                width: fill-available;
                 max-height: 280px;
             }
         }
         h1 { 
-            font-size: $font-size-regular;
+            font-size: $font-size-medium;
         }        
         margin-bottom: 8px;
     }

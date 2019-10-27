@@ -1,18 +1,18 @@
 <!-- header -->
 <app-header></app-header>
 <main appCenter>
-  <!-- loader -->
-  <div class="loader" *ngIf="loading">
-    Cagerrando...
-  </div>
   <div class="wrapper">
+    <!-- loader -->
+    <div class="loader" appCenter *ngIf="loading">
+      Cagerrando...
+    </div>
     <!-- searchbar -->
     <section class="searchbar" appCenter>
       <input type="text" #searchInput appFull id="" placeholder="Busque filmes e tal..." [(ngModel)]="searchValue"
         (ngModelChange)="searchMovie($event)">
     </section>
     <!-- movies list -->
-    <section class="card-list"  *ngIf="!loading">
+    <section class="card-list" *ngIf="!loading">
       <app-movies-list [movies]="movies"></app-movies-list>
       <!-- paginate -->
       <app-paginate *ngIf="movies.length" [pages]="pages" [currentPage]="currentPage"
