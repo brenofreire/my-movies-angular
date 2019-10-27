@@ -36,3 +36,12 @@ export class CenterDirective {
     elementRef.nativeElement.style.justifyContent = 'center';
   }
 }
+@Directive({
+  selector: '[appContentBetween]'
+})
+export class ContentBetweenDirective {
+  constructor(elementRef: ElementRef) {
+    elementRef.nativeElement.style.display = 'flex';
+    elementRef.nativeElement.style.justifyContent = 'space-between';
+  }
+}

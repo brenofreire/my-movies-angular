@@ -62,9 +62,12 @@ main {
             }
         }        
     }
+
 }
-@media (min-width: 768px) {  
-    
+@media (min-width: 768px) { 
+    .no-desktop {
+        display: none;
+    }    
 }
 @media (max-width: 1024px) {  
     main {
@@ -75,6 +78,9 @@ main {
 }
 
 @media (max-width: 767px) {  
+    .no-mobile {
+        display: none;
+    }
     .searchbar {
         input {
             width: 95% !important;
