@@ -88,6 +88,7 @@ export class HomePageComponent implements OnInit {
    * @description Cria um debounce pra procurar os filmes adequadamente
    */
   searchMovie() {
+    this.currentPage = 1;
     this.searchChanged.next();
   }
 }
