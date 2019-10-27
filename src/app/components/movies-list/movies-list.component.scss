@@ -53,14 +53,14 @@
     .card-movie {
         display: flex;
         min-height: 290px;
-        max-height: 290px;
+        max-height: 350px;
         margin-bottom: 35px;
         .img {
             flex: none;
             img {
                 object-fit: cover;
                 min-height: 290px;
-                max-height: 290px;
+                max-height: 350px;
             }
         }
         h1 { 
