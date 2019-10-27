@@ -17,7 +17,7 @@ export class ApiService {
   /**
    * 
    * @param url_dinamica endpoint da requisição
-   * @param auth verifica se precisa ser autenticado ou não
+   * @param queryString query string adicional na request
    */
   get(url_dinamica: string, queryString?: string) {
     return new Promise((response, error) => {

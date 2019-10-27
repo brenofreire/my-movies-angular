@@ -32,7 +32,7 @@ export class MoviesService {
    */
   getMovies(page: number = 1) {
     return new Promise(res => {
-      this.api.get('/movie/top_rated', this.queryStringGetMovies(page)).then(async response => {
+      this.api.get('/movie/popular', this.queryStringGetMovies(page)).then(async response => {
         res(response);
       });
     })

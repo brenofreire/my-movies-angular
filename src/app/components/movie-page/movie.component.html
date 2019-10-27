@@ -1,0 +1,59 @@
+<app-header></app-header>
+<main appCenter>
+    <div class="loader" *ngIf="loading">
+        Cagerrando...
+    </div>
+    <div class="wrapper" *ngIf="!loading">
+        <article>
+            <header appPadding appContentBetween>
+                <h1>{{ movie.title }}</h1>
+                <time class="date space">{{ movie.release_date | timeToBr }}</time>
+            </header>
+            <div class="content">
+                <section appPadding>
+                    <div>
+                        <h1>Sinopse</h1>
+                        <p>
+                            {{ movie.overview }}
+                        </p>
+                    </div>
+                    <div>
+                        <h1>Informações</h1>
+                        <ul appContentBetween>
+                            <li>
+                                <h3>Situação</h3> {{ movie.status | statusToBr }}
+                            </li>
+                            <li>
+                                <h3>Idioma</h3>
+                                <span *ngFor="let i of objectKeys(movie.spoken_languages)">
+                                    {{ movie.spoken_languages[i].name }}
+                                </span>
+                            </li>
+                            <li>
+                                <h3>Duração</h3> {{ movie.runtime | toHour }}
+                            </li>
+                            <li>
+                                <h3>Orçamento</h3> {{ movie.budget | currency }}
+                            </li>
+                            <li>
+                                <h3>Receita</h3> {{ movie.revenue | currency }}
+                            </li>
+                            <li>
+                                <h3>Lucro</h3> {{ movie.revenue - movie.budget | currency }}
+                            </li>
+                        </ul>
+                    </div>
+                    <div appContentBetween>
+                        <app-tags [tags]="getGenresId(movie.genres)"></app-tags>
+                        <button class="btn-circle">{{ movie.vote_average * 10 }}%</button>
+                    </div>
+                </section>
+                <aside>
+                    <img src="{{ url + movie.poster_path }}" class="no-mobile" alt="">
+                    <img src="{{ url + movie.backdrop_path }}" class="no-desktop" alt="">
+                </aside>
+            </div>
+            <iframe [src]="url_trailer" frameborder="0" allowfullscreen></iframe>
+        </article>
+    </div>
+</main>

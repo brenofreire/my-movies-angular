@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TimeToBrModule } from 'src/pipes/time-to-br.module';
 import { BackgroundDirective, PaddingDirective, FullDirective, CenterDirective, ContentBetweenDirective } from '../directive/main.directive';
-import { MovieComponent } from './components/movie/movie.component';
+import { MovieComponent } from './components/movie-page/movie.component';
 import { HeaderComponent } from './components/header/header.component';
 import { PaginateComponent } from './components/paginate/paginate.component';
 import { MoviesListComponent } from './components/movies-list/movies-list.component';
